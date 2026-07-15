@@ -3,24 +3,27 @@ pipeline {
     stages {
         stage('pull') { 
             steps {
-                
+               git branch: 'main', url: 'https://github.com/abhaydhangar0011/eks-terraform.git' 
             }
         }
         stage('init') { 
             steps {
-                
+                sh ''' terraform init
+                       terraform plan'''
             }
         }
         stage('approve') { 
             steps {
-                
+                input massage: 'shall we procced ?', ok: 'approve'
             }
+}
 stage('apply') { 
             steps {
-                
+                sh ''' terraform apply --auto-approve
+                '''
             }
         }
-        }
+        
 
     }
 }
